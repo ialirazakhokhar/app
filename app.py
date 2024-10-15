@@ -114,9 +114,10 @@ def predict_emotion():
         file.save(file_path)
     
         # # # Make prediction using the model
-        response = predicting_emotion(file_path, model, scaler)    
+        response = predicting_emotion(file_path, model, scaler)
+        response = analyze_anger(response)
         # # Remove the temporary audio file
-        # os.remove(file_path)
+        os.remove(file_path)
         
         # Return the predicted emotion as JSON
         return jsonify({'emotion': response})
