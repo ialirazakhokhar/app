@@ -114,12 +114,13 @@ def predict_emotion():
         file.save(file_path)
     
         # # # Make prediction using the model
-        # response = analyze_anger(predicting_emotion(file_path, model, scaler))    
+        response = predicting_emotion(file_path, model, scaler)    
         # # Remove the temporary audio file
         # os.remove(file_path)
         
         # Return the predicted emotion as JSON
-        return jsonify({'emotion': file_path})
+        return jsonify({'emotion': response})
+        
     except Exception as e:
         logging.error(f"Error in /predict route: {e}")
         return jsonify({'error': str(e)})
