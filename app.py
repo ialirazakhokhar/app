@@ -85,11 +85,18 @@ def analyze_anger(text):
         return "Slightly Angry"
     else:
         return "Not Angry"
-# Define the prediction route
+# Define the health route
 @app.route('/health', methods=['GET'])
 def health_check():
     return jsonify({"status": "healthy"}), 200
+    
+@app.route('/post-health', methods=['POST'])
+def health_check():
+    data = request.get_json()  # Get JSON data from the request body
+    print(data)  # Print the received data for debugging
+    return jsonify({"status": "healthy", "message": "Received data: {}".format(data)}), 200
 
+    
 # Define the prediction route
 @app.route('/predict', methods=['POST'])
 def predict_emotion():
