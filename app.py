@@ -111,7 +111,7 @@ def predict_emotion():
         
         # Save the file to a temporary location
         file_path = os.path.join(f'{BASE_DIR}/audios/', file.filename)
-        # file.save(file_path)
+        file.save(file_path)
     
         # # # Make prediction using the model
         # response = analyze_anger(predicting_emotion(file_path, model, scaler))    
