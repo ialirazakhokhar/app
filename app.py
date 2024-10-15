@@ -53,7 +53,7 @@ def extract_features_from_audio(audio_path):
         return None  
         
 def predicting_emotion(audio_path, model, scaler):
-    try
+    try:
         # Extract features
         features = extract_features_from_audio(audio_path)
     
