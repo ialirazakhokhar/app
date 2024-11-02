@@ -16,8 +16,8 @@ try:
 # Load the model and scaler
     # model = tf.keras.models.load_model(f'{BASE_DIR}/emotion_detection_model_more_layers_v3.h5')
     model = tf.keras.models.load_model(f'{BASE_DIR}/emotion_cnn_model_23_10_2024.h5')
-    # scaler = joblib.load(f'{BASE_DIR}/emotion_cnn_model_scaler_23_10_2024.save')
-    scaler = joblib.load(f'{BASE_DIR}/scaler_more_layers_v3.save')
+    scaler = joblib.load(f'{BASE_DIR}/emotion_cnn_model_scaler_23_10_2024.save')
+    # scaler = joblib.load(f'{BASE_DIR}/scaler_more_layers_v3.save')
 except Exception as e:
     logging.error(f"Error loading model or scaler: {e}")
     
