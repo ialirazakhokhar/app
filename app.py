@@ -117,7 +117,7 @@ def predict_emotion():
     
         # # # Make prediction using the model
         response = predicting_emotion(file_path, model, scaler)
-        # response = analyze_anger(response)
+        response = analyze_anger(response)
         # # Remove the temporary audio file
         os.remove(file_path)
         
