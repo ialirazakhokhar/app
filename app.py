@@ -2,10 +2,14 @@ from flask import Flask, request, jsonify
 import librosa
 import numpy as np
 import joblib
+import logging
 import tensorflow as tf
 from pydub import AudioSegment
 import os
 from pathlib import Path
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
 # Initialize Flask app
 app = Flask(__name__)
 
