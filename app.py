@@ -3,12 +3,15 @@ import librosa
 import numpy as np
 import joblib
 import tensorflow as tf
+from pydub import AudioSegment
 import os
 from pathlib import Path
 # Initialize Flask app
 app = Flask(__name__)
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent
+# Add the local FFmpeg binaries to the PATH
+os.environ["PATH"] += os.pathsep + os.path.abspath("bin/")
 model = None
 scaler = None
 # Load the model and scaler
@@ -25,8 +28,28 @@ except Exception as e:
 label_mapping = {0: 'angry', 1: 'happy', 2: 'more_angry', 3: 'neutral', 4: 'sad', 5: 'slightly_angry'}
 inverse_label_mapping = {v: k for k, v in label_mapping.items()}
 
+def convert_aac_to_wav(input_file: str, output_file: str, target_sample_rate: int = 16000):
+    """
+    Converts an AAC file to WAV format with normalization to a specified sample rate.
+    """
+    try:
+        audio = AudioSegment.from_file(input_file, format="aac")
+        audio = audio.set_frame_rate(target_sample_rate)
+        audio.export(output_file, format="wav")
+        return output_file
+    except Exception as e:
+        logging.error(f"Error converting AAC to WAV: {e}")
+        return None
+    
 # Function to extract features from an audio file
 def extract_features_from_audio(audio_path):
+    try:
+        # Ensure the audio is in WAV format
+        if not audio_path.endswith(".wav"):
+            wav_path = os.path.splitext(audio_path)[0] + ".wav"  # Generate output WAV file path
+            audio_path = convert_aac_to_wav(audio_path, wav_path)
+            if not audio_path:
+                raise ValueError("Failed to convert audio to WAV format.")    
     try:    
         # Load audio file (assuming the file is max 10 seconds long)
         y, sr = librosa.load(audio_path, duration=10.0)  # Load up to 10 seconds
