@@ -42,7 +42,7 @@ def convert_aac_to_wav(input_file: str, output_file: str, target_sample_rate: in
         return None
     
 # Function to extract features from an audio file
-def extract_features_from_audio(audio_path)    
+def extract_features_from_audio(audio_path: str):
 
     try:
         # Ensure the audio is in WAV format
