@@ -42,7 +42,8 @@ def convert_aac_to_wav(input_file: str, output_file: str, target_sample_rate: in
         return None
     
 # Function to extract features from an audio file
-def extract_features_from_audio(audio_path):
+def extract_features_from_audio(audio_path.")    
+
     try:
         # Ensure the audio is in WAV format
         if not audio_path.endswith(".wav"):
@@ -50,7 +51,7 @@ def extract_features_from_audio(audio_path):
             audio_path = convert_aac_to_wav(audio_path, wav_path)
             if not audio_path:
                 raise ValueError("Failed to convert audio to WAV format.")    
-    try:    
+            
         # Load audio file (assuming the file is max 10 seconds long)
         y, sr = librosa.load(audio_path, duration=10.0)  # Load up to 10 seconds
         # y = noise_reduction(y)
