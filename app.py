@@ -15,7 +15,6 @@ app = Flask(__name__)
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent
 # Add the local FFmpeg binaries to the PATH
-os.environ["PATH"] += os.pathsep + os.path.abspath("bin/")
 model = None
 scaler = None
 # Load the model and scaler
