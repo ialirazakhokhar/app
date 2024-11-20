@@ -10,8 +10,18 @@ from pathlib import Path
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 # Set FFmpeg and FFprobe paths to the local binaries
-AudioSegment.converter = os.path.join(os.getcwd(), "bin", "ffmpeg")
-AudioSegment.ffprobe = os.path.join(os.getcwd(), "bin", "ffprobe")
+# Add the bin folder to the system PATH
+bin_path = os.path.join(os.getcwd(), "bin")
+os.environ["PATH"] += os.pathsep + bin_path
+
+# Debug the PATH
+print("System PATH:", os.environ["PATH"])
+os.chmod(os.path.join(bin_path, "ffmpeg"), 0o755)
+os.chmod(os.path.join(bin_path, "ffprobe"), 0o755)
+# Set FFmpeg and FFprobe paths
+AudioSegment.converter = os.path.join(bin_path, "ffmpeg")
+AudioSegment.ffprobe = os.path.join(bin_path, "ffprobe")
+
 # Initialize Flask app
 app = Flask(__name__)
 
